@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Step by Step Form Demo</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/bamboo.css/dist/dark.min.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Rubik&display=swap");
+      * {
+        font-size: 18px;
+      }
+      :root {
+        --b-font-main: "Rubik", serif;
+        --b-btn-bg: #3b4252;
+      }
+      .no-display {
+        display: none;
+      }
+      .red {
+        color: red;
+      }
+      button {
+        font-weight: bold;
+      }
+      label {
+        padding: 1rem 0;
+      }
+      input {
+        padding: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>
+      A Three Step Form Demo
+      <sup>
+        &nbsp;&nbsp;
+        <a href="/">&rarr;</a>
+      </sup>
+    </h1>
+    <hr />
+    <form>
+      <p class="f-1">
+        <label for="first-name">Step 1: Enter your First name</label>
+        <input type="text" name="first_name" id="first-name" placeholder="First Name..." />
+      </p>
+      <p class="f-2 no-display">
+        <label for="last-name">Step 2: Enter your Last name</label>
+        <input type="text" name="last_name" id="last-name" placeholder="Last Name..." />
+      </p>
+      <p class="f-3 no-display">
+        <label for="email">Step 3: Enater your Email</label>
+        <input type="text" name="email" id="email" placeholder="Email..." />
+      </p>
+
+      <p class="f-nav">
+        <button type="button" class="no-display f-nav-prev">&laquo; Prev</button>
+        <button type="button" class="f-nav-next">Next &raquo;</button>
+        <button type="submit" class="no-display f-nav-submit red">Submit &check;</button>
+      </p>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(function () {
+        var f = 1;
+        var f_count = 3;
+
+        $(".f-nav-next").on("click", function () {
+          $(".f-" + f).hide();
+          f += 1;
+          $(".f-" + f).show();
+          $(".f-nav-prev").show();
+          if (f == f_count) {
+            $(".f-nav-submit").show();
+            $(".f-nav-next").hide();
+          }
+        });
+
+        $(".f-nav-prev").on("click", function () {
+          $(".f-nav-submit").hide();
+          $(".f-nav-next").show();
+          $(".f-" + f).hide();
+          f -= 1;
+          $(".f-" + f).show();
+          if (f == 1) {
+            $(".f-nav-prev").hide();
+          }
+        });
+        $("form").on("submit", function (event) {
+          event.preventDefault();
+          alert("Submitted value:\n\n" + $(this).serialize());
+        });
+      });
+    </script>
+  </body>
+</html>
